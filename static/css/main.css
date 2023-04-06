@@ -1,0 +1,76 @@
+.main_title_profile{
+    text-align: center;
+}
+
+.img_profile{
+    display: block;
+    margin: 0 auto;
+}
+
+.black-bg {
+    
+    margin: 0 auto;
+    position : fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background : rgb(255, 255, 255);
+    z-index : 5;
+    padding: 30px;
+    border-radius: 5px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 1s;
+  }
+
+.show-modal{
+    visibility: visible;
+    opacity: 1;
+  }
+
+
+.white-bg {
+    background: white;
+    border-radius: 5px;
+    padding: 30px;
+} 
+
+.loginbtn{
+    display: block;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.main-formset{
+    text-align: center;
+    margin: 0 auto;
+}
+
+.parampagecontent{
+    text-align: left;
+    margin: 0 auto;
+    width: 400px;
+    margin-left: auto;
+    margin-right: auto;  
+}
+
+.custom-tooltip {
+    --bs-tooltip-bg: var(--bs-primary);
+  }
+
+#wrapper{
+    height: auto;
+    min-height: 100%;
+    padding-bottom: 165px;
+}
+
+footer{
+    height: 165px;
+    position : relative;
+    transform : translateY(-100%);
+    background: white;
+}
+
+.footerform{
+    background: black;
+}

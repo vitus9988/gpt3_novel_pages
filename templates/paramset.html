@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>GPT Novel by Js</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+            crossorigin="anonymous"
+        />
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}" />
+    </head>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"
+        crossorigin="anonymous"
+    ></script>
+    <script
+        src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+        crossorigin="anonymous"
+    ></script>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">GPT Novel</a>
+            <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">로그인</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="paramset.html">파라미터</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="novel.html">생성결과</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <img src="{{ url_for('static', filename='img/openai.png') }}" class="img_profile" />
+    <h4 class="main_title_profile">GPT-3 Novel Service by javascript</h4>
+    <h6 class="main_title_profile">파라미터 조절</h6>
+
+    <form action="novel.html" class="parampagecontent" id="paramsform">
+        <label for="inputState">메인 테마</label>
+        <select
+            id="inputState"
+            class="form-control"
+            onchange="mainhandleOnChange(this)"
+            name="NovelTheme"
+        >
+            <option value="" disabled="disabled" style="display: none" selected="selected">
+                테마 선택
+            </option>
+            <option value="science fiction">SF</option>
+            <option value="detective">추리</option>
+            <option value="horor">공포</option>
+            <option value="love story">연애</option>
+        </select>
+
+        <div class="form-check form-switch form-group">
+            <input
+                class="form-check-input"
+                type="checkbox"
+                role="switch"
+                id="flexSwitchCheckDefault"
+                checked
+            />
+            <label class="form-check-label" for="flexSwitchCheckDefault">옵션 A</label>
+        </div>
+
+        <div class="over-container">
+            <label for="customRange1" class="form-label">Max tokens</label>
+            <output class="model_parameters" id="maxTokens">0</output>
+        </div>
+        <input
+            type="range"
+            class="form-range"
+            value="0"
+            max="2048"
+            step="1"
+            id="customRange1"
+            oninput="maxTokens.value = this.value"
+            name="mt"
+        />
+
+        <div class="over-container">
+            <label for="customRange2" class="form-label">Temperature</label>
+            <output class="model_parameters" id="temp">0</output>
+        </div>
+        <input
+            type="range"
+            class="form-range"
+            value="0"
+            max="1"
+            step="0.1"
+            id="customRange2"
+            oninput="temp.value = this.value"
+            name="tmp"
+        />
+
+        <div class="over-container">
+            <label for="customRange3" class="form-label">Top P</label>
+            <output class="model_parameters" id="top_p">0</output>
+        </div>
+        <input
+            type="range"
+            class="form-range"
+            value="0"
+            max="1"
+            step="0.1"
+            id="customRange3"
+            oninput="top_p.value = this.value"
+            name="topp"
+        />
+
+        <div class="over-container">
+            <label for="customRange4" class="form-label">Frequency penalty</label>
+            <output class="model_parameters" id="Frequency">0</output>
+        </div>
+
+        <input
+            type="range"
+            class="form-range"
+            value="0"
+            max="1"
+            step="0.1"
+            id="customRange4"
+            oninput="Frequency.value = this.value"
+            name="fpty"
+        />
+
+        <div class="over-container">
+            <label for="customRange5" class="form-label">Presence penalty</label>
+            <output class="model_parameters" id="Presence">0</output>
+        </div>
+        <input
+            type="range"
+            class="form-range"
+            value="0"
+            max="1"
+            step="0.1"
+            id="customRange5"
+            oninput="Presence.value = this.value"
+            name="ppty"
+        />
+
+        <button
+            onclick="getparameterfunc()"
+            type="submit"
+            id="login"
+            class="btn btn-danger loginbtn"
+        >
+            생성
+        </button>
+    </form>
+
+    <script>
+        let mainhandleOnChange = (e) => {
+            console.log(e.value);
+        };
+
+        let getparameterfunc = (q) => {
+            let jsonData = [];
+            let Ntheme = $("select[name=NovelTheme]").val();
+
+            if (Ntheme == null) {
+                alert("테마 미설정");
+                q.preventDefault();
+            }
+
+            jsonData.push(Ntheme);
+            let params = document.querySelectorAll(".model_parameters");
+            params.forEach((c) => {
+                jsonData.push(c.value);
+            });
+            localStorage.setItem("jsonData", JSON.stringify(jsonData));
+        };
+
+        /*
+        function getparameterfunc(){
+          let jsonData = [];
+          var paramsValue = document.querySelectorAll('.model_parameters');
+          
+          jsonData.push(maintheme);
+
+          paramsValue.forEach((k,v)=>{
+            const paramsName = k.childNodes[0].value;
+            const paramsValue = k.childNodes[1].value;
+            jsonData.push(paramsName, paramsValue);
+          })
+
+          alert(jsonData)
+          window.localStorage.setItem("jsonData", JSON.stringify(jsonData));
+          */
+
+        /*
+          let jsonData = [];
+          document.querySelectorAll(".over-container").forEach((item, idx) => {
+              const paramsName = item.childNodes[0].value;
+              const paramsValue = item.childNodes[1].value;
+              jsonData.push(paramsName, paramsValue);
+          });
+
+          window.localStorage.setItem("jsonData", JSON.stringify(jsonData));
+
+          alert(localStorage);
+          */
+    </script>
+</html>
