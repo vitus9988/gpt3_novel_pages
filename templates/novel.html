@@ -57,11 +57,12 @@
         </nav>
 
         <img src="{{ url_for('static', filename='img/openai.png') }}" class="img_profile" />
-        <h4 class="main_title_profile">GPT-3 Novel Service by javascript</h4>
+        <h4 class="main_title_profile">GPT-3 Novel Service</h4>
 
         <p class="main_title_profile">생성 결과</p>
         <p class="main_title_profile">이전 가중치 : <span class="parameter_num">0</span></p>
-        <form action="paramset.html">
+        
+        <form action="{{ url_for('paramset') }}" method='POST'>
             <button type="submit" id="login" class="btn btn-danger loginbtn">재생성</button>
         </form>
 
