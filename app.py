@@ -30,6 +30,7 @@ def makeGptSentence(topic, mt, tmp, topp, fpty, ppty):
 
 @app.route('/')
 def index():
+    
     return render_template('index.html')
 
 
@@ -41,6 +42,7 @@ def paramset():
 @app.route('/novel-page', methods=['GET','POST'])
 def novel():
     if request.method == "POST":
+        
         topic = str(request.form['NovelTheme'])
         mt = int(request.form['mt'])
         tmp = float(request.form['tmp'])

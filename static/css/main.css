@@ -74,3 +74,16 @@ footer{
 .footerform{
     background: black;
 }
+
+#loading-logo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 50px;
+    height: 50px;
+    background-image: url('/static/img/Loading_icon.gif');
+    background-repeat: no-repeat;
+    background-position: center;
+    display: none;
+  }
