@@ -55,4 +55,3 @@ def novel():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    #turbotest('sf',100,0.1,0.1,0.1,0.1)

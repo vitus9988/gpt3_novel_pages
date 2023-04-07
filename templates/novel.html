@@ -57,7 +57,7 @@
         </nav>
 
         <img src="{{ url_for('static', filename='img/openai.png') }}" class="img_profile" />
-        <h4 class="main_title_profile">GPT-3 Novel Service</h4>
+        <h4 class="main_title_profile">GPT-3.5 Novel Service</h4>
 
         <p class="main_title_profile">생성 결과</p>
         <p class="main_title_profile">이전 가중치 : <span class="parameter_num">0</span></p>
@@ -72,6 +72,7 @@
                 class="form-control mainpage"
                 id="exampleFormControlTextarea1"
                 style="height: 450px"
+                readonly
             >
             {{data}}
             </textarea>
