@@ -1,27 +1,30 @@
+#-*- coding:utf-8 -*-
+import base64
 from flask import Flask, render_template, request, redirect, url_for
 import openai
 import secure
 
 
 app = Flask(__name__)
-
-
-def makeGptSentence(topic,mt, tmp, topp, fpty, ppty):
+    
+    
+def makeGptSentence(topic, mt, tmp, topp, fpty, ppty):
+    prompt = fr"Write a novel of moderate length. Finish the story by writing to the end, with no interruptions. In the header and footer, remove any stories that are not relevant to the novel.Topics: {topic}"
     
     openai.api_key = secure.access_token
-    
-    response = openai.Completion.create(
-        model="text-davinci-003",
-        prompt=f"{topic} novel short write",
-        temperature=tmp,
-        max_tokens=mt,
-        top_p=topp,
-        frequency_penalty=fpty,
-        presence_penalty=ppty
+    completion = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{
+            "role": "user", 
+            "content": prompt,
+            }],
+        max_tokens = mt,
+        temperature = tmp,
+        top_p = topp,
+        frequency_penalty = fpty,
+        presence_penalty = ppty,
     )
-
-    result = response['choices'][0]['text']
-    
+    result = completion['choices'][0]['message']['content']
     return result
 
 
@@ -52,3 +55,4 @@ def novel():
 
 if __name__ == "__main__":
     app.run(debug=True)
+    #turbotest('sf',100,0.1,0.1,0.1,0.1)
