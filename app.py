@@ -30,7 +30,6 @@ def makeGptSentence(topic, mt, tmp, topp, fpty, ppty):
 
 @app.route('/')
 def index():
-    
     return render_template('index.html')
 
 
